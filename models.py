@@ -1,8 +1,11 @@
 """
 models.py - Centralised model loading for the Legal Clause Simplifier.
 
-All heavy models are loaded lazily and cached as module-level singletons so
-they are initialised at most once per process.
+Model choices (upgraded for higher accuracy):
+  - Simplification  : facebook/bart-large-xsum
+  - Importance      : cross-encoder/nli-deberta-v3-large
+  - Summarisation   : google/pegasus-large
+  - Similarity      : sentence-transformers/all-mpnet-base-v2
 """
 
 import logging
@@ -12,36 +15,27 @@ from typing import Any
 logger = logging.getLogger(__name__)
 
 
-# ---------------------------------------------------------------------------
-# Container for all loaded models
-# ---------------------------------------------------------------------------
-
 @dataclass
 class ModelBundle:
     """Holds every model/tokenizer used by the pipeline."""
 
-    # Simplification & explanation  (facebook/bart-large)
+    # Simplification  (facebook/bart-large-xsum)
     simplifier_tokenizer: Any = field(default=None, repr=False)
     simplifier_model: Any = field(default=None, repr=False)
 
-    # Zero-shot importance classification  (facebook/bart-large-mnli)
+    # Zero-shot importance classification  (cross-encoder/nli-deberta-v3-large)
     classifier_pipeline: Any = field(default=None, repr=False)
 
-    # Summarisation — loaded as tokenizer + model directly to avoid the
-    # removed "summarization" pipeline task in newer transformers versions
+    # Summarisation  (google/pegasus-large) — tokenizer + model, no pipeline
     summarizer_tokenizer: Any = field(default=None, repr=False)
     summarizer_model: Any = field(default=None, repr=False)
 
-    # Semantic similarity embeddings  (sentence-transformers/all-MiniLM-L6-v2)
+    # Semantic similarity embeddings  (all-mpnet-base-v2)
     embedding_model: Any = field(default=None, repr=False)
 
 
 _BUNDLE: ModelBundle | None = None
 
-
-# ---------------------------------------------------------------------------
-# Public loader
-# ---------------------------------------------------------------------------
 
 def load_models(device: str = "cpu") -> ModelBundle:
     """
@@ -66,41 +60,53 @@ def load_models(device: str = "cpu") -> ModelBundle:
     from sentence_transformers import SentenceTransformer
 
     bundle = ModelBundle()
+    torch_device = 0 if device.startswith("cuda") else -1
 
-    # --- 1. Simplification / Explanation model (BART-large) ----------------
-    logger.info("Loading simplification model: facebook/bart-large")
-    bundle.simplifier_tokenizer = AutoTokenizer.from_pretrained("facebook/bart-large")
+    # --- 1. Simplification: facebook/bart-large-xsum -----------------------
+    # Fine-tuned on extreme summarisation — produces concise, plain-English
+    # rewrites rather than near-verbatim copies of the input.
+    logger.info("Loading simplification model : facebook/bart-large-xsum")
+    bundle.simplifier_tokenizer = AutoTokenizer.from_pretrained(
+        "facebook/bart-large-xsum"
+    )
     bundle.simplifier_model = AutoModelForSeq2SeqLM.from_pretrained(
-        "facebook/bart-large"
+        "facebook/bart-large-xsum"
     ).to(device)
     bundle.simplifier_model.eval()
 
-    # --- 2. Zero-shot importance classifier (BART-large-MNLI) --------------
-    logger.info("Loading zero-shot classifier: facebook/bart-large-mnli")
+    # --- 2. Zero-shot classifier: cross-encoder/nli-deberta-v3-large -------
+    # DeBERTa-v3-large NLI model; MNLI accuracy ~91 % vs ~89.9 % for
+    # bart-large-mnli — meaningfully better importance detection.
+    logger.info(
+        "Loading zero-shot classifier  : cross-encoder/nli-deberta-v3-large"
+    )
     bundle.classifier_pipeline = pipeline(
         "zero-shot-classification",
-        model="facebook/bart-large-mnli",
-        device=0 if device.startswith("cuda") else -1,
+        model="cross-encoder/nli-deberta-v3-large",
+        device=torch_device,
     )
 
-    # --- 3. Summarisation model (BART-large-CNN) ----------------------------
-    # NOTE: The "summarization" pipeline task was removed in recent versions of
-    # transformers.  We load the tokenizer + model directly instead and run
-    # inference manually in processing.py — identical results, no task lookup.
-    logger.info("Loading summarisation model: facebook/bart-large-cnn")
+    # --- 3. Summarisation: google/pegasus-large ----------------------------
+    # Pre-trained with the Gap-Sentence Generation objective, designed
+    # specifically for abstractive summarisation; outperforms BART-CNN on
+    # most summarisation benchmarks.
+    # Loaded as tokenizer + model to avoid deprecated pipeline task strings.
+    logger.info("Loading summarisation model   : google/pegasus-large")
     bundle.summarizer_tokenizer = AutoTokenizer.from_pretrained(
-        "facebook/bart-large-cnn"
+        "google/pegasus-large"
     )
     bundle.summarizer_model = AutoModelForSeq2SeqLM.from_pretrained(
-        "facebook/bart-large-cnn"
+        "google/pegasus-large"
     ).to(device)
     bundle.summarizer_model.eval()
 
-    # --- 4. Sentence-Transformer for semantic similarity ------------------
+    # --- 4. Sentence-Transformer: all-mpnet-base-v2 ------------------------
+    # Higher STS benchmark accuracy than all-MiniLM-L6-v2
+    # (avg cosine-sim ~69.6 vs ~68.1 on the SBERT benchmark suite).
     logger.info(
-        "Loading sentence-transformer: sentence-transformers/all-MiniLM-L6-v2"
+        "Loading sentence-transformer  : sentence-transformers/all-mpnet-base-v2"
     )
-    bundle.embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
+    bundle.embedding_model = SentenceTransformer("all-mpnet-base-v2")
 
     _BUNDLE = bundle
     logger.info("All models loaded successfully.")
