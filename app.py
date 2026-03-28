@@ -153,6 +153,27 @@ def save_output(data: dict, path: str) -> None:
     logger.info("Output saved to: %s", out_path.resolve())
 
 
+def process_pdf(
+    pdf_path: str,
+    groq_model: str | None = None,
+    max_clauses: int | None = None,
+    reference_summary: str | None = None,
+    ground_truth_labels: list[str] | None = None,
+    min_clause_length: int = 30,
+) -> dict:
+    """Process PDF and return the result dict (same as CLI output)."""
+    args = argparse.Namespace(
+        pdf=pdf_path,
+        output="output.json",
+        groq_model=groq_model or "llama-3.3-70b-versatile",
+        max_clauses=max_clauses,
+        reference_summary=reference_summary,
+        ground_truth_labels=','.join(ground_truth_labels) if ground_truth_labels else None,
+        min_clause_length=min_clause_length,
+    )
+    return run_pipeline(args)
+
+
 def main() -> None:
     parser = build_arg_parser()
     args = parser.parse_args()

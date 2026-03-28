@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Results - Legal Clause Simplifier</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 20px; background: #f4f6fa; color: #1d2e4a; }
+      .container { max-width: 1100px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 1px 16px rgba(10,20,40,0.08); }
+      .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+      .header h1 { margin: 0; }
+      .row { display: flex; gap: 12px; flex-wrap: wrap; }
+      .card { background: #f9fbff; border: 1px solid #dde8ff; border-radius: 8px; padding: 14px; margin-bottom: 14px; flex: 1; min-width: 220px; }
+      table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+      th, td { text-align: left; border-bottom: 1px solid #d7dfe8; padding: 8px; }
+      th { background: #f1f7ff; }
+      pre { max-height: 400px; overflow: auto; background: #111827; color: #dbeafe; padding: 12px; border-radius: 8px; }
+      .button-group { display: flex; gap: 10px; margin-bottom: 10px; }
+      a.btn { background: #0078d4; color: #fff; text-decoration: none; padding: 9px 14px; border-radius: 6px; border: 1px solid #0062a6; }
+      a.btn:hover { background: #005aac; }
+      .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.82rem; border: 1px solid; }
+      .important { background: #ffeceb; border-color: #ff8c92; color: #a30000; }
+      .normal { background: #ecf3ff; border-color: #9ab9f8; color: #1d4e9f; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Analysis Result for {{ filename }}</h1>
+        <div class="button-group">
+          <a class="btn" href="/">New PDF</a>
+          <a class="btn" href="/download?path={{ output_json_path }}">Download JSON</a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="card">
+          <h3>Summary</h3>
+          <p>{{ result.summary }}</p>
+        </div>
+        <div class="card">
+          <h3>Evaluation</h3>
+          <ul>
+            {% for k, v in result.evaluation.items() %}
+              <li><strong>{{ k }}</strong>: {{ v }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <h2>Clauses ({{ result.clauses | length }})</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Original</th>
+            <th>Simplified</th>
+            <th>Importance</th>
+            <th>Semantic Similarity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for clause in result.clauses %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ clause.original }}</td>
+            <td>{{ clause.simplified }}</td>
+            <td><span class="tag {{ clause.importance | lower }}">{{ clause.importance }}</span></td>
+            <td>{{ clause.semantic_similarity }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <h2>JSON Output</h2>
+      <pre>{{ result_json }}</pre>
+    </div>
+  </body>
+</html>

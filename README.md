@@ -126,4 +126,30 @@ python app.py --pdf contract.pdf --groq-api-key your_key_here
     "f1": 0.85
   }
 }
+
+---
+
+## Streamlit Web App
+
+A Streamlit-based UI is now available in `streamlit_app.py`.
+
+1. Install dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+2. Set your Groq API key:
+    ```bash
+    # Windows PowerShell
+    $env:GROQ_API_KEY = "your_key_here"
+
+    # macOS/Linux
+    export GROQ_API_KEY="your_key_here"
+    ```
+3. Run streamlit:
+    ```bash
+    streamlit run streamlit_app.py
+    ```
+4. Open the browser URL shown by Streamlit (usually `http://localhost:8501`).
+
+The UI supports PDF upload, max/min clause controls, and a JSON download link.
 ```
