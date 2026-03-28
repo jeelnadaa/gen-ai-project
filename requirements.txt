@@ -1,0 +1,22 @@
+# Legal Clause Simplifier — Python dependencies
+# Install with:  pip install -r requirements.txt
+
+# PDF extraction
+PyPDF2>=3.0.0
+
+# NLP / clause splitting
+spacy>=3.7.0
+# After installing, download the model:
+#   python -m spacy download en_core_web_sm
+
+# HuggingFace ecosystem
+transformers>=4.40.0
+torch>=2.2.0
+sentence-transformers>=2.7.0
+accelerate>=0.30.0        # optional but recommended for faster inference
+
+# Evaluation metrics
+nltk>=3.8.1
+rouge-score>=0.1.2
+scikit-learn>=1.4.0
+numpy>=1.26.0

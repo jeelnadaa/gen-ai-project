@@ -1,0 +1,186 @@
+{
+  "clauses": [
+    {
+      "original": "Demo Legal Contract – Software Service Agreement \nSOFTWARE SERVICE AGREEMENT \nThis Software Service Agreement (“Agreement”) is entered into on this day between ABC \nSolutions, hereinafter referred to as the “Service Provider”, and XYZ Pvt. Ltd., hereinafter \nreferred to as the “Client”.",
+      "simplified": "Simplify the following legal clause into plain, easy-to-understand English: Demo Legal Contract – Software Service Agreement SOFTWARE SERVICE AGREEMENT This SOFTWARE Service Agreement (“Agreement”) is entered into on this day between ABC Solutions, hereinafter referred to as the “Service Provider”, and XYZ Pvt. Ltd., hereinfter ˜referred to as “XYZ’, and ˜ABC ˜Solutions’ and Կասարուներ Դին Խի Ծեսր",
+      "explanation": "Explain in simple terms what the following legal clause means for a non-lawyer: Demo Legal Contract – Software Service Agreement SOFTWARE SERVICE AGREEMENT This SOFTWARE Service Agreement (“Agreement”) is entered into on this day between ABC Solutions, hereinafter referred to as the “Service Provider”, and XYZ Pvt. Ltd., a wholly-owned subsidiary of XYZ Ltd. (hereinafter “XYZ”), a wholly owned subsidiary of ABC, Ltd. and ABC, Inc. (together, “ABC”).",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.7747
+    },
+    {
+      "original": "This Agreement sets forth the terms and conditio ns under which \nthe Service Provider agrees to provide software development and related services to the \nClient.",
+      "simplified": "Simplify the following legal clause into plain, easy-to-understand English: This Agreement sets forth the terms and conditio ns under which the Service Provider agrees to provide software development and related services to the Client.",
+      "explanation": "Explain in simple terms what the following legal clause means for a non-lawyer: This Agreement sets forth the terms and conditio ns under which the Service Provider agrees to provide software development and related services to the Client.",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.8666
+    },
+    {
+      "original": "The Service Provider agrees to design, develop, and maintain software applications as \nrequested by the Client.",
+      "simplified": "Simplify the following legal clause into plain, easy-to-understand English: The Service Provider agrees to design, develop, and maintain software applications as requested by the Client.",
+      "explanation": "Explain in simple terms what the following legal clause means for a non-lawyer: The Service Provider agrees to design, develop, and maintain software applications as requested by the Client.",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.7305
+    },
+    {
+      "original": "The services shall be performed in a professional manner and in \naccordance with the specifications and timelines mutually agreed upon by both par ties.",
+      "simplified": "Simplify the following legal clause into plain, easy-to-understand English: The services shall be performed in a professional manner and in accordance with the specifications and timelines mutually agreed upon by both parties, and in accordance with the terms of the ties.",
+      "explanation": "Explain in simple terms what the following legal clause means for a non-lawyer: The services shall be performed in a professional manner and in accordance with the specifications and timelines mutually agreed upon by both par ties.",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.7688
+    },
+    {
+      "original": "The Service Provider shall ensure that all deliverables meet the quality standards specified \nin the project documentation and shall provide regular updates regarding the progress of \nthe work.",
+      "simplified": "Simplify the following legal clause into plain, easy-to-understand English: The Service Provider shall ensure that all deliverables meet the quality standards specified in the project documentation and shall provide regular updates regarding the progress of the work.",
+      "explanation": "Explain in simple terms what the following legal clause means for a non-lawyer: The Service Provider shall ensure that all deliverables meet the quality standards specified in the project documentation and shall provide regular updates regarding the progress of the work.",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.8065
+    },
+    {
+      "original": "The Client agrees to compensate the Service Provider for the services rendered under this \nAgreement.",
+      "simplified": "Simplify the following legal clause into plain, easy-to-understand English: The Client agrees to compensate the Service Provider for the services rendered under this Agreement.",
+      "explanation": "Explain in simple terms what the following legal clause means for a non-lawyer: The Client agrees to compensate the Service Provider for the services rendered under this Agreement.",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.8538
+    },
+    {
+      "original": "The total fee for the services shall be mutually agreed upon prior to the \ncommencement of the project.",
+      "simplified": "Simplify the following legal clause into plain, easy-to-understand English: The total fee for the services shall be mutually agreed upon prior to the commencement of the project.",
+      "explanation": "Explain in simple terms what the following legal clause means for a non-lawyer: The total fee for the services shall be mutually agreed upon prior to the commencement of the project.",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.8478
+    },
+    {
+      "original": "The Client shall make an initial payment before the start of \nthe project and the remaining balance shall be paid upon completion and delivery of the \nfinal product.",
+      "simplified": "Simplify the following legal clause into plain, easy-to-understand English: The Client shall make an initial payment before the start of the project and the remaining balance shall be paid upon completion and delivery of the final product.",
+      "explanation": "Explain in simple terms what the following legal clause means for a non-lawyer: The Client shall make an initial payment before the start of the project and the remaining balance shall be paid upon completion and delivery of the final product.",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.8795
+    },
+    {
+      "original": "Any delay in payment beyond the agreed due date may result in additional \ncharges or suspension of services until payment is received.",
+      "simplified": "Simplify the following legal clause into plain, easy-to-understand English: Any delay in payment beyond the agreed due date may result in additional charges or suspension of services until payment is received.",
+      "explanation": "Explain in simple terms what the following legal clause means for a non-lawyer: Any delay in payment beyond the agreed due date may result in additional charges or suspension of services until payment is received.",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.892
+    },
+    {
+      "original": "Both parties agree to maintain strict confidentiality regarding any proprietary or sensitive \ninformation shared during the course of this Agreement.",
+      "simplified": "Simplify the following legal clause into plain, easy-to-understand English: Both parties agree to maintain strict confidentiality regarding any proprietary or sensitive information shared during the course of this Agreement.",
+      "explanation": "Explain in simple terms what the following legal clause means for a non-lawyer: Both parties agree to maintain strict confidentiality regarding any proprietary or sensitive information shared during the course of this Agreement.",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.8367
+    },
+    {
+      "original": "Such confidential information \nshall not be disclosed to any third party without prior written consent from the other party \nunless required by law.",
+      "simplified": "Simplify the following legal clause into plain, easy-to-understand English: Such confidential information shall not be disclosed to any third party without prior written consent from the other party unless required by law.",
+      "explanation": "Explain in simple terms what the following legal clause means for a non-lawyer: Such confidential information shall not be disclosed to any third party without prior written consent from the other party unless required by law.",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.8206
+    },
+    {
+      "original": "This confidentiality obligation shall continue even after the \ntermination of this Agreement.",
+      "simplified": "Simplify the following legal clause into plain, easy-to-understand English: This confidentiality obligation shall continue even after the termination of this Agreement.",
+      "explanation": "Explain in simple terms what the following legal clause means for a non-lawyer: This confidentiality obligation shall continue even after the termination of this Agreement.",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.8577
+    },
+    {
+      "original": "This Agreement shall commence on the effective date and shall remain in force until the \ncompletion of the services unless terminated earlier by either party.",
+      "simplified": "Simplify the following legal clause into plain, easy-to-understand English: This Agreement shall commence on the effective date and shall remain in force until the completion of the services unless terminated earlier by either party.",
+      "explanation": "Explain in simple terms what the following legal clause means for a non-lawyer: This Agreement shall commence on the effective date and shall remain in force until the completion of the services unless terminated earlier by either party.",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.8791
+    },
+    {
+      "original": "Either party may \nterminate this Agreement by providing written notice to the other party at least thirty days in \nadvance.",
+      "simplified": "Simplify the following legal clause into plain, easy-to-understand English: Either party may terminate this Agreement by providing written notice to the other party at least thirty days in advance.",
+      "explanation": "Explain in simple terms what the following legal clause means for a non-lawyer: Either party may terminate this Agreement by providing written notice to the other party at least thirty days in advance.",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.8905
+    },
+    {
+      "original": "However, the Client reserves the right to terminate the Agreement immediately if \nthe Service Provider fails to deliver the services as per the agreed specifications or \ntimelines.",
+      "simplified": "Simplify the following legal clause into plain, easy-to-understand English: However, the Client reserves the right to terminate the Agreement immediately if the Service Provider fails to deliver the services as per the agreed specifications or timelines.",
+      "explanation": "Explain in simple terms what the following legal clause means for a non-lawyer: However, the Client reserves the right to terminate the Agreement immediately if the Service Provider fails to deliver the services as per the agreed specifications or timelines.",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.9098
+    },
+    {
+      "original": "The Service Provider shall not be held liable for any indirect, incidental, or consequential \ndamages arising from the use of the software or services provided under this Agreement.",
+      "simplified": "Simplify the following legal clause into plain, easy-to-understand English: The Service Provider shall not be held liable for any indirect, incidental, or consequential damages arising from the use of the software or services provided under this Agreement.",
+      "explanation": "Explain in simple terms what the following legal clause means for a non-lawyer: The Service Provider shall not be held liable for any indirect, incidental, or consequential damages arising from the use of the software or services provided under this Agreement.",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.8933
+    },
+    {
+      "original": "The Service Provider’s total liability under this Agreement shall not excee d",
+      "simplified": "Simplify the following legal clause into plain, easy-to-understand English: The Service Provider’s total liability under this Agreement shall not excee d",
+      "explanation": "Explain in simple terms what the following legal clause means for a non-lawyer: The Service Provider’s total liability under this Agreement shall not excee d",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.8598
+    },
+    {
+      "original": "the total amount \npaid by the Client for the services.",
+      "simplified": "Simplify the following legal clause into plain, easy-to-understand English: the total amount paid by the Client for the services.",
+      "explanation": "Explain in simple terms what the following legal clause means for a non-lawyer: the total amount paid by the Client for the services.",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.7613
+    },
+    {
+      "original": "All intellectual property rights related to the software developed during the course of this \nproject shall be transferred to the Client upon full and final payment for the services.",
+      "simplified": "Simplify the following legal clause into plain, easy-to-understand English: All intellectual property rights related to the software developed during the course of this project shall be transferred to the Client upon full and final payment for the services.",
+      "explanation": "Explain in simple terms what the following legal clause means for a non-lawyer: All intellectual property rights related to the software developed during the course of this project shall be transferred to the Client upon full and final payment for the services.",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.8469
+    },
+    {
+      "original": "Until \nsuch payment is completed, the Service Provider shall retain ownersh ip of the developed \nmaterials.",
+      "simplified": "Simplify the following legal clause into plain, easy-to-understand English: Until such payment is completed, the Service Provider shall retain ownersh ip of the developed materials.",
+      "explanation": "Explain in simple terms what the following legal clause means for a non-lawyer: Until such payment is completed, the Service Provider shall retain ownersh ip of the developed materials.",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.8343
+    },
+    {
+      "original": "In the event of any dispute arising out of or in connection with this Agreement, both parties \nagree to attempt to resolve the dispute through mutual discussion and negotiation.",
+      "simplified": "Simplify the following legal clause into plain, easy-to-understand English: In the event of any dispute arising out of or in connection with this Agreement, both parties agree to attempt to resolve the dispute through mutual discussion and negotiation.",
+      "explanation": "Explain in simple terms what the following legal clause means for a non-lawyer: In the event of any dispute arising out of or in connection with this Agreement, both parties agree to attempt to resolve the dispute through mutual discussion and negotiation.",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.8218
+    },
+    {
+      "original": "If the \ndispute cannot be resolved amicably, it shall be referred to arbitration in accordance with \nthe applicable laws of the jurisdiction.",
+      "simplified": "Simplify the following legal clause into plain, easy-to-understand English: If the dispute cannot be resolved amicably, it shall be referred to arbitration in accordance with the applicable laws of the jurisdiction.",
+      "explanation": "Explain in simple terms what the following legal clause means for a non-lawyer: If the dispute cannot be resolved amicably, it shall be referred to arbitration in accordance with the applicable laws of the jurisdiction.",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.8589
+    },
+    {
+      "original": "This Agreement shall be governed by and interpreted in accordance with the laws of the \napplicable jurisdiction.",
+      "simplified": "Simplify the following legal clause into plain, easy-to-understand English: This Agreement shall be governed by and interpreted in accordance with the laws of the applicable jurisdiction.",
+      "explanation": "Explain in simple terms what the following legal clause means for a non-lawyer: This Agreement shall be governed by and interpreted in accordance with the laws of the applicable jurisdiction.",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.7865
+    },
+    {
+      "original": "By signing this Agreement, both parties acknowledge that they have \nread, understood, and agreed to the terms and conditions set forth in this do cument.",
+      "simplified": "Simplify the following legal clause into plain, easy-to-understand English: By signing this Agreement, both parties acknowledge that they have read, understood, and agreed to the terms and conditions set forth in this do cument.",
+      "explanation": "Explain in simple terms what the following legal clause means for a non-lawyer: By signing this Agreement, both parties acknowledge that they have read, understood, and agreed to the terms and conditions set forth in this do cument.",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.8808
+    }
+  ],
+  "summary": "Software Service Agreement (“Agreement”) is entered into on this day between ABC                 Solutions, hereinafter referred to as the “Service Provider”, and XYZ Pvt. Ltd. This Agreement sets forth the terms and conditio ns under which the Service Provider agrees to provide software development and related services to the Client.",
+  "evaluation": {
+    "bleu": 0.6723,
+    "rouge": {
+      "rouge1": 0.8033,
+      "rouge2": 0.7833,
+      "rougeL": 0.8033
+    },
+    "mean_semantic_similarity": 0.8399,
+    "accuracy": null,
+    "precision": null,
+    "recall": null,
+    "f1": null
+  }
+}
