@@ -2,15 +2,15 @@
   "clauses": [
     {
       "original": "Demo Legal Contract – Software Service Agreement \nSOFTWARE SERVICE AGREEMENT \nThis Software Service Agreement (“Agreement”) is entered into on this day between ABC \nSolutions, hereinafter referred to as the “Service Provider”, and XYZ Pvt. Ltd., hereinafter \nreferred to as the “Client”.",
-      "simplified": "ABC Solutions (the service provider) and XYZ Pvt. Ltd. (the client) are entering into this agreement. This agreement is for the software services that ABC Solutions will provide to XYZ Pvt. Ltd. It starts on the date it is signed.",
+      "simplified": "ABC Solutions (the service provider) and XYZ Pvt. Ltd. (the client) are entering into this agreement. This agreement is between these two parties and outlines the terms for the software service. It starts on the date it is signed.",
       "importance": "NORMAL",
-      "semantic_similarity": 0.8697
+      "semantic_similarity": 0.8933
     },
     {
       "original": "This Agreement sets forth the terms and conditio ns under which \nthe Service Provider agrees to provide software development and related services to the \nClient.",
-      "simplified": "This agreement outlines the terms under which we will provide software development services to you.",
+      "simplified": "The Service Provider will provide software development and related services to the Client under the terms outlined in this agreement.",
       "importance": "NORMAL",
-      "semantic_similarity": 0.8797
+      "semantic_similarity": 0.9107
     },
     {
       "original": "The Service Provider agrees to design, develop, and maintain software applications as \nrequested by the Client.",
@@ -27,7 +27,7 @@
     {
       "original": "The Service Provider shall ensure that all deliverables meet the quality standards specified \nin the project documentation and shall provide regular updates regarding the progress of \nthe work.",
       "simplified": "The Service Provider must deliver high-quality work that meets the project's standards and keep us updated on their progress. They will make sure their work is good enough and let us know how things are going.",
-      "importance": "NORMAL",
+      "importance": "IMPORTANT",
       "semantic_similarity": 0.8246
     },
     {
@@ -50,33 +50,33 @@
     },
     {
       "original": "Any delay in payment beyond the agreed due date may result in additional \ncharges or suspension of services until payment is received.",
-      "simplified": "If you don't pay on time, you may be charged extra or we'll stop providing services until we get your payment.",
+      "simplified": "If you don't pay on time, you might have to pay extra or we'll stop providing services until we get your payment.",
       "importance": "IMPORTANT",
-      "semantic_similarity": 0.823
+      "semantic_similarity": 0.792
     },
     {
       "original": "Both parties agree to maintain strict confidentiality regarding any proprietary or sensitive \ninformation shared during the course of this Agreement.",
-      "simplified": "Both parties must keep secret any private or sensitive information they share with each other.",
+      "simplified": "Both parties must keep secret any private or sensitive information shared with each other. They must not disclose it to anyone else.",
       "importance": "IMPORTANT",
-      "semantic_similarity": 0.7516
+      "semantic_similarity": 0.7355
     },
     {
       "original": "Such confidential information \nshall not be disclosed to any third party without prior written consent from the other party \nunless required by law.",
-      "simplified": "You must not share confidential information with anyone else without getting permission in writing first, unless the law says you have to.",
+      "simplified": "You must keep this information secret and not share it with anyone else unless the other party agrees in writing or the law requires you to do so.",
       "importance": "IMPORTANT",
-      "semantic_similarity": 0.772
+      "semantic_similarity": 0.7403
     },
     {
       "original": "This confidentiality obligation shall continue even after the \ntermination of this Agreement.",
-      "simplified": "You must keep the information confidential even after this agreement ends.",
+      "simplified": "You must keep the information secret even after this agreement ends.",
       "importance": "IMPORTANT",
-      "semantic_similarity": 0.7933
+      "semantic_similarity": 0.6752
     },
     {
       "original": "This Agreement shall commence on the effective date and shall remain in force until the \ncompletion of the services unless terminated earlier by either party.",
-      "simplified": "This agreement starts on the effective date and lasts until the work is finished, unless one of the parties ends it sooner.",
+      "simplified": "This agreement starts on the effective date and lasts until the work is finished, unless one of the parties decides to end it sooner.",
       "importance": "IMPORTANT",
-      "semantic_similarity": 0.7868
+      "semantic_similarity": 0.7859
     },
     {
       "original": "Either party may \nterminate this Agreement by providing written notice to the other party at least thirty days in \nadvance.",
@@ -86,9 +86,9 @@
     },
     {
       "original": "However, the Client reserves the right to terminate the Agreement immediately if \nthe Service Provider fails to deliver the services as per the agreed specifications or \ntimelines.",
-      "simplified": "The Client can end the Agreement at any time if the Service Provider doesn't meet the agreed requirements or deadlines. This means the Client can stop the agreement immediately if the Service Provider fails to deliver as promised.",
+      "simplified": "The Client can end the Agreement at any time if the Service Provider doesn't meet the agreed standards or deadlines. This means the Client can stop the agreement immediately if the Service Provider fails to deliver as promised.",
       "importance": "IMPORTANT",
-      "semantic_similarity": 0.8509
+      "semantic_similarity": 0.8517
     },
     {
       "original": "The Service Provider shall not be held liable for any indirect, incidental, or consequential \ndamages arising from the use of the software or services provided under this Agreement.",
@@ -98,9 +98,9 @@
     },
     {
       "original": "The Service Provider’s total liability under this Agreement shall not excee d",
-      "simplified": "The Service Provider is not responsible for more than a certain amount of damages under this agreement.",
+      "simplified": "The Service Provider is not responsible for paying more than a certain amount if something goes wrong. This limit applies to all claims made under this agreement.",
       "importance": "IMPORTANT",
-      "semantic_similarity": 0.8236
+      "semantic_similarity": 0.7103
     },
     {
       "original": "the total amount \npaid by the Client for the services.",
@@ -122,9 +122,9 @@
     },
     {
       "original": "In the event of any dispute arising out of or in connection with this Agreement, both parties \nagree to attempt to resolve the dispute through mutual discussion and negotiation.",
-      "simplified": "If a problem comes up related to this Agreement, we'll try to resolve it by talking and negotiating with each other. We'll work together to find a solution before taking any further action.",
+      "simplified": "If a problem comes up related to this Agreement, both parties will try to resolve it by talking and negotiating with each other. They will work together to find a solution before taking any further action.",
       "importance": "IMPORTANT",
-      "semantic_similarity": 0.7915
+      "semantic_similarity": 0.8018
     },
     {
       "original": "If the \ndispute cannot be resolved amicably, it shall be referred to arbitration in accordance with \nthe applicable laws of the jurisdiction.",
@@ -140,20 +140,20 @@
     },
     {
       "original": "By signing this Agreement, both parties acknowledge that they have \nread, understood, and agreed to the terms and conditions set forth in this do cument.",
-      "simplified": "By signing this agreement, both parties confirm they've read and accepted the terms outlined in this document.",
-      "importance": "NORMAL",
-      "semantic_similarity": 0.9134
+      "simplified": "By signing this agreement, both parties confirm they've read and understood the terms and conditions, and they agree to them.",
+      "importance": "IMPORTANT",
+      "semantic_similarity": 0.8127
     }
   ],
-  "summary": "This Software Service Agreement is a contract between ABC Solutions and XYZ Pvt. Ltd. that outlines the terms for software development and related services, with the service provider agreeing to design, develop, and maintain software applications as requested by the client. The client must compensate the service provider for the services rendered, with payment terms and timelines mutually agreed upon, and both parties must maintain confidentiality regarding proprietary information shared during the agreement. The agreement can be terminated by either party with written notice, but the service provider is not liable for indirect damages and their total liability is limited to the amount paid by the client.",
+  "summary": "This Software Service Agreement is a contract between ABC Solutions and XYZ Pvt. Ltd. that outlines the terms for software development and related services, with the service provider agreeing to design, develop, and maintain software applications as requested by the client. The client must compensate the service provider for the services rendered, with payment terms and timelines mutually agreed upon, and both parties must maintain confidentiality regarding proprietary information shared during the agreement. The agreement can be terminated by either party with written notice, but the service provider is not liable for indirect damages and their total liability is limited to the total amount paid by the client.",
   "evaluation": {
-    "bleu": 0.1117,
+    "bleu": 0.1332,
     "rouge": {
-      "rouge1": 0.5,
-      "rouge2": 0.3258,
-      "rougeL": 0.3222
+      "rouge1": 0.4972,
+      "rouge2": 0.324,
+      "rougeL": 0.3204
     },
-    "mean_semantic_similarity": 0.8211,
+    "mean_semantic_similarity": 0.8067,
     "accuracy": null,
     "precision": null,
     "recall": null,

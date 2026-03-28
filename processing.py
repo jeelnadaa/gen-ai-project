@@ -111,16 +111,28 @@ def summarize_document(text: str, bundle: ModelBundle) -> str:
     return summary
 
 
-def process_clauses(clauses: list[str], bundle: ModelBundle) -> list[dict]:
+def process_clauses(
+    clauses: list[str],
+    bundle: ModelBundle,
+    progress_callback=None,
+) -> list[dict]:
     """
     Run the per-clause pipeline: simplify → importance → similarity.
     Returns list of dicts: original, simplified, importance, semantic_similarity.
+
+    progress_callback, if provided, should accept (processed_count, total_count).
     """
     results: list[dict] = []
     total = len(clauses)
 
     for idx, clause in enumerate(clauses, start=1):
         logger.info("Processing clause %d / %d …", idx, total)
+        if progress_callback is not None:
+            try:
+                progress_callback(idx, total)
+            except Exception:
+                logger.exception("progress_callback raised an exception")
+
         simplified = simplify_clause(clause, bundle)
         importance = detect_importance(clause, bundle)
         similarity = compute_semantic_similarity(clause, simplified, bundle)

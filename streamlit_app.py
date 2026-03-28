@@ -7,14 +7,77 @@ from app import process_pdf
 
 st.set_page_config(page_title="Legal Clause Simplifier", layout="wide")
 
+st.markdown(
+    """
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Satoshi:wght@400;500;600;700&display=swap');
+    html, body, [class^='css'] {
+        font-family: 'Satoshi', 'Inter', sans-serif;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 st.title("Legal Clause Simplifier (Streamlit)")
 st.write("Upload a PDF and generate clause simplification + importance + evaluation JSON.")
 
 with st.sidebar:
     st.header("Settings")
-    groq_model = st.text_input("Groq model", "llama-3.3-70b-versatile")
+
+    if "show_info" not in st.session_state:
+        st.session_state.show_info = ""
+
+    def info_button(key: str, title: str, tooltip: str):
+        left_col, right_col = st.columns([0.6, 9.4])
+        with left_col:
+            clicked = st.button("i", key=f"{key}_button")
+            if clicked:
+                if st.session_state.show_info == key:
+                    st.session_state.show_info = ""
+                else:
+                    st.session_state.show_info = key
+        with right_col:
+            st.markdown(f"**{title}**")
+
+        if st.session_state.show_info == key:
+            st.success(tooltip)
+
+    info_button(
+        "groq_model_info",
+        "Groq Model",
+        "Select a model for Groq API calls. llama-3.3-70b-versatile = best quality; "
+        "llama-3.1-8b-instant = faster/cheaper; gemma2-9b-it = balanced.",
+    )
+    groq_model = st.selectbox(
+        "Groq model",
+        options=[
+            "llama-3.3-70b-versatile",
+            "llama-3.1-8b-instant",
+            "gemma2-9b-it",
+        ],
+        index=0,
+    )
+
+    info_button(
+        "Max Clauses",
+        "Max Clauses",
+        "How many clauses to analyze. Set 0 to analyze all extracted clauses.",
+    )
     max_clauses = st.number_input("Max clauses (0 = all)", min_value=0, value=0, step=1)
+
+    info_button(
+        "Min Clause Length",
+        "Min Clause Length",
+        "Ignore clauses shorter than this character length; helps reduce noise.",
+    )
     min_clause_length = st.number_input("Min clause length", min_value=10, value=30, step=1)
+
+    info_button(
+        "Reference Summary",
+        "Reference Summary",
+        "Optional gold summary text used only for evaluation in ROUGE/metrics.",
+    )
     reference_summary = st.text_area("Reference summary (optional)")
 
 uploaded_file = st.file_uploader("Choose a PDF file", type=["pdf"])
@@ -30,6 +93,14 @@ if uploaded_file is not None:
         if not os.environ.get("GROQ_API_KEY"):
             st.error("Please set GROQ_API_KEY in environment variables before running")
         else:
+            progress_bar = st.progress(0)
+            status_text = st.empty()
+
+            def progress_callback(processed: int, total: int):
+                progress = int(processed / total * 100)
+                progress_bar.progress(progress)
+                status_text.info(f"Processing clause {processed}/{total} ({progress}%)")
+
             with st.spinner("Processing PDF (this may take a while)..."):
                 try:
                     result = process_pdf(
@@ -39,8 +110,11 @@ if uploaded_file is not None:
                         reference_summary=reference_summary.strip() or None,
                         ground_truth_labels=None,
                         min_clause_length=int(min_clause_length),
+                        progress_callback=progress_callback,
                     )
 
+                    progress_bar.progress(100)
+                    status_text.success("All clauses processed")
                     st.success("Processing complete")
 
                     st.subheader("Summary")

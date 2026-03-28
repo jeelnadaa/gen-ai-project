@@ -75,7 +75,10 @@ def build_arg_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def run_pipeline(args: argparse.Namespace) -> dict:
+def run_pipeline(
+    args: argparse.Namespace,
+    progress_callback=None,
+) -> dict:
     t0 = time.perf_counter()
 
     logger.info("═" * 60)
@@ -104,7 +107,7 @@ def run_pipeline(args: argparse.Namespace) -> dict:
     logger.info("═" * 60)
     logger.info("STEP 4 / 5 — Processing %d clauses via Groq API", len(clauses))
     logger.info("═" * 60)
-    clause_results = process_clauses(clauses, bundle)
+    clause_results = process_clauses(clauses, bundle, progress_callback=progress_callback)
 
     logger.info("Generating document summary …")
     summary = summarize_document(raw_text, bundle)
@@ -160,6 +163,7 @@ def process_pdf(
     reference_summary: str | None = None,
     ground_truth_labels: list[str] | None = None,
     min_clause_length: int = 30,
+    progress_callback=None,
 ) -> dict:
     """Process PDF and return the result dict (same as CLI output)."""
     args = argparse.Namespace(
@@ -171,7 +175,7 @@ def process_pdf(
         ground_truth_labels=','.join(ground_truth_labels) if ground_truth_labels else None,
         min_clause_length=min_clause_length,
     )
-    return run_pipeline(args)
+    return run_pipeline(args, progress_callback=progress_callback)
 
 
 def main() -> None:
