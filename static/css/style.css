@@ -355,13 +355,13 @@ body {
 
 .metrics-bar {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--border);
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding: 2rem;
+    background: var(--white);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    overflow: hidden;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
 .metric {

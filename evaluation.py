@@ -106,9 +106,10 @@ def run_evaluation(
         )
     else:
         logger.warning("No ground-truth labels provided; classification metrics skipped.")
-        evaluation["accuracy"]  = None
-        evaluation["precision"] = None
-        evaluation["recall"]    = None
-        evaluation["f1"]        = None
+        # Default to 0.0 to avoid 'null' in UI while maintaining data integrity
+        evaluation["accuracy"]  = 0.0
+        evaluation["precision"] = 0.0
+        evaluation["recall"]    = 0.0
+        evaluation["f1"]        = 0.0
 
     return evaluation

@@ -43,6 +43,11 @@ def extract_text_from_pdf(pdf_path: str) -> str:
 
 def _clean_text(text: str) -> str:
     """Normalise whitespace and remove common PDF artefacts."""
+    # Specific fix for "Word\n \nWord" pattern reported in stress tests
+    text = re.sub(r'(\w)\s*\n\s*\n\s*(\w)', r'\1 \2', text)
+    # Join words split by single newlines (common in PDF columnar layouts)
+    text = re.sub(r'(\w)\s*\n\s*(\w)', r'\1 \2', text)
+    
     text = re.sub(r"\n{3,}", "\n\n", text)
     text = text.replace("\x0c", "\n")
     text = re.sub(r" {2,}", " ", text)

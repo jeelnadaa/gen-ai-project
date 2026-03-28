@@ -61,8 +61,8 @@ def load_models(groq_model: str = "llama-3.3-70b-versatile") -> ModelBundle:
     bundle.groq_client = Groq(api_key=api_key)
     bundle.groq_model  = groq_model
 
-    logger.info("Loading sentence-transformer : all-mpnet-base-v2")
-    bundle.embedding_model = SentenceTransformer("all-mpnet-base-v2")
+    logger.info("Loading sentence-transformer : BAAI/bge-large-en-v1.5")
+    bundle.embedding_model = SentenceTransformer("BAAI/bge-large-en-v1.5")
 
     _BUNDLE = bundle
     logger.info("All models ready.")

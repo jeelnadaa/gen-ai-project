@@ -3,7 +3,7 @@ processing.py - Core NLP processing functions using Groq LLM API.
 
 All heavy NLP tasks (simplification, importance detection, summarisation) are
 handled by llama-3.3-70b-versatile via the Groq API.
-Semantic similarity uses a local sentence-transformer (all-mpnet-base-v2).
+Semantic similarity uses a local sentence-transformer (BAAI/bge-large-en-v1.5).
 """
 
 import logging
@@ -60,22 +60,27 @@ def simplify_clause(clause: str, bundle: ModelBundle) -> str:
 def detect_importance(clause: str, bundle: ModelBundle) -> str:
     """Classify whether a clause is IMPORTANT or NORMAL using Llama 3.3 70B."""
     system = (
-        "You are a legal analyst. Determine whether a legal clause is "
-        "IMPORTANT or NORMAL.\n\n"
-        "IMPORTANT clauses typically involve:\n"
-        "  - Liability, indemnification, or damages\n"
-        "  - Confidentiality or non-disclosure obligations\n"
-        "  - Termination rights or conditions\n"
-        "  - Intellectual property ownership or licensing\n"
-        "  - Payment terms, penalties, or financial obligations\n"
-        "  - Governing law, jurisdiction, or dispute resolution\n"
-        "  - Non-compete or non-solicitation restrictions\n"
-        "  - Representations, warranties, or guarantees\n\n"
-        "NORMAL clauses are routine procedural or administrative text "
-        "(e.g. definitions, notice addresses, formatting rules).\n\n"
+        "You are a HIGH-PRECISION legal risk analyst. Your goal is to identify clauses that "
+        "impact a company's legal or financial standing.\n\n"
+        "### IMPORTANT CATEGORIES (Mandatory classification as IMPORTANT):\n"
+        "1. LIMITATION OF LIABILITY & DAMAGES: Any mention of caps on liability, indirect damages, or exclusions.\n"
+        "2. INDEMNIFICATION: Any clause where one party agrees to compensate the other for losses.\n"
+        "3. DATA SECURITY & PRIVACY: Data breach notifications, security standards, and privacy obligations.\n"
+        "4. TERMINATION: Rights to end the contract, notice periods, and post-termination obligations.\n"
+        "5. INTELLECTUAL PROPERTY: Ownership, licensing, and infringement claims.\n\n"
+        "### NORMAL CATEGORIES:\n"
+        "- DEFINITIONS: Simple definitions of terms (e.g., '\"Liability\" means any debt...').\n"
+        "- ROUTINE NOTICES: Standard contact info or notice procedure (e.g., 'All notices shall be in writing...').\n"
+        "- HEADINGS & FRAGMENTS: Empty headers or metadata (e.g., 'Article IV: Miscellaneous').\n"
+        "- CHOICE OF LAW: Standard 'Governing Law' clauses (unless they include unusual penalties).\n\n"
+        "### CRITICAL DISTINCTION:\n"
+        "- A clause mentioning 'Liability' in a DEFINITION is NORMAL.\n"
+        "- A clause LIMITING or EXCLUDING 'Liability' is IMPORTANT.\n"
+        "- A clause about HOW TO SEND a 'Notice' is NORMAL.\n"
+        "- A clause about the RIGHT TO TERMINATE upon 'Notice' is IMPORTANT.\n\n"
         "Reply with ONLY one word: IMPORTANT or NORMAL."
     )
-    user = f"Classify this clause:\n\n{clause}"
+    user = f"Classify the following legal clause based on risk level:\n\n{clause}"
     result = _llm(bundle, system, user, max_tokens=10, temperature=0.0)
     label = result.strip().upper().rstrip(".")
     if "IMPORTANT" in label:

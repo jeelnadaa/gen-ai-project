@@ -246,6 +246,7 @@ function renderResults(result) {
     document.getElementById('bleu-val').textContent = (eval.bleu || 0).toFixed(4);
     document.getElementById('rouge1-val').textContent = (eval.rouge?.rouge1 || 0).toFixed(4);
     document.getElementById('rougel-val').textContent = (eval.rouge?.rougeL || 0).toFixed(4);
+    document.getElementById('sim-val').textContent = (eval.mean_semantic_similarity || 0).toFixed(4);
 
     updateClausesDisplay();
     setupTooltips(); // Re-bind tooltips for new elements
