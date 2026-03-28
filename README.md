@@ -52,6 +52,7 @@ legal_clause_simplifier/
 ```bash
 pip install -r requirements.txt
 python -m spacy download en_core_web_sm
+python flask_app.py
 ```
 
 ### 3. Set your API key

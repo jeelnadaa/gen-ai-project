@@ -1,46 +1,178 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Legal Clause Simplifier - Web</title>
-    <style>
-      body { font-family: Arial, sans-serif; margin: 24px; background: #f7f9fc; color: #1f2d3d; }
-      .container { max-width: 900px; margin: auto; background: white; padding: 22px; border-radius: 10px; box-shadow: 0 1px 18px rgba(10, 20, 40, 0.1); }
-      h1 { margin-bottom: 12px; }
-      input, button, select { font-size: 1rem; padding: 10px 12px; margin-top: 8px; width: 100%; box-sizing: border-box; }
-      label { font-weight: bold; margin-top: 14px; display: block; }
-      .btn { background: #0078d4; color: white; border: none; border-radius: 5px; cursor: pointer; }
-      .btn:hover { background: #005aac; }
-      .alert { margin-bottom: 14px; color: #a00; }
-      .note { font-size: 0.9rem; color: #555; margin-top: 6px; }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Legal Clause Simplifier (Web UI)</h1>
-      {% with messages = get_flashed_messages() %}
-        {% if messages %}
-          <div class="alert">{{ messages[0] }}</div>
-        {% endif %}
-      {% endwith %}
-      <form method="post" action="/analyze" enctype="multipart/form-data">
-        <label for="pdf_file">Upload PDF</label>
-        <input id="pdf_file" name="pdf_file" type="file" accept="application/pdf" required />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LexiGen | Legal Clause Simplifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Satoshi font will be loaded via CSS @font-face or local if available, 
+         using a similar high-quality sans-serif as fallback -->
+    <link href="https://fonts.cdnfonts.com/css/satoshi" rel="stylesheet">
+</head>
+<body>
+    <div class="app-wrapper">
+        <!-- Sidebar for History -->
+        <aside class="history-sidebar">
+            <div class="sidebar-brand">
+                <i class="fas fa-feather-pointed"></i>
+                <span>LexiGen</span>
+            </div>
+            <div class="history-content">
+                <div class="section-title">History</div>
+                <div id="history-list" class="history-list">
+                    <!-- History items injected here -->
+                    <div class="empty-history">No recent analyses</div>
+                </div>
+            </div>
+            <div class="sidebar-footer">
+                <button id="new-analysis-btn" class="btn-minimal">
+                    <i class="fas fa-plus"></i> New Analysis
+                </button>
+            </div>
+        </aside>
 
-        <label for="max_clauses">Max Clauses (optional)</label>
-        <input id="max_clauses" name="max_clauses" type="number" min="1" placeholder="e.g. 40" />
+        <!-- Main Workspace -->
+        <main class="workspace">
+            <div class="container">
+                <header class="workspace-header">
+                    <h1 class="hero-title">SIMPLIFY</h1>
+                    <p>High-fidelity legal clause analysis.</p>
+                </header>
 
-        <label for="min_clause_length">Min Clause Length</label>
-        <input id="min_clause_length" name="min_clause_length" type="number" value="30" min="10" />
+                <!-- Configuration Panel -->
+                <section class="config-panel">
+                    <form id="process-form">
+                        <div class="config-grid">
+                            <div class="config-item">
+                                <label>
+                                    Model
+                                    <span class="info-icon" data-tooltip="The AI engine used for simplification. Llama 3.3 70B is recommended for highest quality."><i class="fas fa-circle-info"></i></span>
+                                </label>
+                                <select id="groq_model" name="groq_model">
+                                    <option value="llama-3.3-70b-versatile">Llama 3.3 70B</option>
+                                    <option value="openai/gpt-oss-120b">GPT-OSS 120B</option>
+                                    <option value="llama-3.1-8b-instant">Llama 3.1 8B</option>
+                                    <option value="gemma2-9b-it">Gemma 2 9B</option>
+                                </select>
+                            </div>
+                            <div class="config-item">
+                                <label>
+                                    Max Clauses
+                                    <span class="info-icon" data-tooltip="Limit the number of clauses to analyze. Set to 0 to process the entire document."><i class="fas fa-circle-info"></i></span>
+                                </label>
+                                <input type="number" id="max_clauses" name="max_clauses" value="0" min="0">
+                            </div>
+                            <div class="config-item">
+                                <label>
+                                    Min Length
+                                    <span class="info-icon" data-tooltip="Ignore text segments shorter than this character count to reduce noise."><i class="fas fa-circle-info"></i></span>
+                                </label>
+                                <input type="number" id="min_clause_length" name="min_clause_length" value="30" min="10">
+                            </div>
+                        </div>
+                        <div class="config-item wide">
+                            <label>
+                                Reference Summary
+                                <span class="info-icon" data-tooltip="Optional: Provide a gold-standard summary to compare against for metrics evaluation."><i class="fas fa-circle-info"></i></span>
+                            </label>
+                            <textarea id="reference_summary" name="reference_summary" placeholder="Optional: Enter reference text for evaluation..."></textarea>
+                        </div>
+                    </form>
+                </section>
 
-        <label for="groq_model">Groq Model (optional)</label>
-        <input id="groq_model" name="groq_model" type="text" placeholder="e.g. llama-3.3-70b-versatile" />
+                <!-- Upload / Status Region -->
+                <section class="action-region">
+                    <div id="drop-zone" class="drop-zone">
+                        <input type="file" id="pdf-input" accept=".pdf" hidden>
+                        <div class="drop-content">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <h3>Upload Document</h3>
+                            <p>Drag and drop your PDF or click to browse</p>
+                        </div>
+                    </div>
 
-        <p class="note">Note: Groq API key must be configured by environment variable <code>GROQ_API_KEY</code>. For local test, it's set in terminal.</p>
+                    <div id="file-ready" class="file-ready-card hidden">
+                        <div class="file-meta">
+                            <i class="fas fa-file-pdf"></i>
+                            <span id="filename-display">contract.pdf</span>
+                        </div>
+                        <div class="file-actions">
+                            <button id="start-btn" class="btn-black">Analyze Document</button>
+                            <button id="remove-file" class="btn-text">Remove</button>
+                        </div>
+                    </div>
 
-        <button class="btn" type="submit">Process PDF</button>
-      </form>
+                    <div id="progress-container" class="progress-wrap hidden">
+                        <div class="progress-info">
+                            <span id="status-message">Extracting clauses...</span>
+                            <span id="progress-percent">0%</span>
+                        </div>
+                        <div class="progress-track">
+                            <div id="progress-bar" class="progress-fill"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Results Dashboard -->
+                <div id="results-dashboard" class="dashboard hidden">
+                    <div class="dashboard-header">
+                        <h2>ANALYSIS RESULTS</h2>
+                        <div class="header-actions">
+                            <a id="download-btn" href="#" class="btn-outline"><i class="fas fa-download"></i> Export JSON</a>
+                        </div>
+                    </div>
+
+                    <section class="metrics-bar">
+                        <div class="metric">
+                            <span class="m-label">BLEU <span class="info-icon" data-tooltip="Measures lexical overlap with a reference summary. 1.0 is a perfect match."><i class="fas fa-circle-info"></i></span></span>
+                            <span id="bleu-val" class="m-value">—</span>
+                        </div>
+                        <div class="metric">
+                            <span class="m-label">ROUGE-1 <span class="info-icon" data-tooltip="Measures recall of individual words compared to a reference text."><i class="fas fa-circle-info"></i></span></span>
+                            <span id="rouge1-val" class="m-value">—</span>
+                        </div>
+                        <div class="metric">
+                            <span class="m-label">ROUGE-L <span class="info-icon" data-tooltip="Measures the Longest Common Subsequence between the generated and reference text."><i class="fas fa-circle-info"></i></span></span>
+                            <span id="rougel-val" class="m-value">—</span>
+                        </div>
+                    </section>
+
+                    <section class="summary-box">
+                        <h3>EXECUTIVE SUMMARY</h3>
+                        <p id="result-summary"></p>
+                    </section>
+
+                    <section class="clauses-view">
+                        <h3>ANNOTATED CLAUSES</h3>
+                        <div id="clauses-container">
+                            <!-- Clauses injected here -->
+                        </div>
+                        <div id="pagination-controls" class="pagination-area hidden">
+                            <button id="load-more-btn" class="btn-outline">Show All Clauses</button>
+                            <button id="show-less-btn" class="btn-outline hidden">Show Less</button>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
     </div>
-  </body>
+
+    <!-- Tooltip Element -->
+    <div id="custom-tooltip" class="tooltip-popup"></div>
+
+    <!-- Custom Confirmation Modal -->
+    <div id="confirm-modal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <h3>Delete Analysis?</h3>
+            <p>This will permanently remove the analysis results for <span id="modal-filename" style="font-weight: 700;"></span> from your history.</p>
+            <div class="modal-actions">
+                <button id="modal-cancel-btn" class="btn-outline-small">Cancel</button>
+                <button id="modal-confirm-btn" class="btn-red-small">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
 </html>
