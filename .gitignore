@@ -1,4 +1,5 @@
 __pycache__/
-.tmp_flask_uploads
-.tmp_streamlit_uploads
+.tmp_flask_uploads/
+.tmp_streamlit_uploads/
+env/
 .env
