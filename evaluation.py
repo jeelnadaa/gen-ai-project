@@ -19,14 +19,25 @@ from sklearn.metrics import (
 logger = logging.getLogger(__name__)
 
 
-def compute_bleu(originals: list[str], simplifications: list[str]) -> float:
-    """Corpus-level BLEU score: original as reference, simplified as hypothesis."""
-    if len(originals) != len(simplifications):
-        raise ValueError("originals and simplifications must have the same length.")
-    references  = [[ref.lower().split()] for ref in originals]
-    hypotheses  = [hyp.lower().split() for hyp in simplifications]
-    smoother    = SmoothingFunction().method4
-    score: float = corpus_bleu(references, hypotheses, smoothing_function=smoother)
+def compute_bleu(reference: str | list[str], hypothesis: str | list[str]) -> float:
+    """
+    Corpus-level BLEU score.
+    If input is list[str], compute aggregate across clauses.
+    If input is str, compute for the summary text.
+    """
+    if isinstance(reference, str):
+        # Comparison of single texts (e.g. Executive Summary)
+        refs = [[reference.lower().split()]]
+        hyps = [hypothesis.lower().split()]
+    else:
+        # Comparison of multiple segments (e.g. Clauses)
+        if len(reference) != len(hypothesis):
+            raise ValueError("Reference and hypothesis lists must have the same length.")
+        refs = [[r.lower().split()] for r in reference]
+        hyps = [h.lower().split() for h in hypothesis]
+
+    smoother = SmoothingFunction().method4
+    score: float = corpus_bleu(refs, hyps, smoothing_function=smoother)
     logger.info("BLEU score: %.4f", score)
     return round(score, 4)
 
@@ -89,14 +100,16 @@ def run_evaluation(
 
     evaluation: dict[str, Any] = {}
 
-    evaluation["bleu"] = compute_bleu(originals, simplifications)
-
     if reference_summary:
+        # Evaluate Executive Summary against Reference Summary
+        evaluation["bleu"]  = compute_bleu(reference_summary, generated_summary)
         evaluation["rouge"] = compute_rouge(generated_summary, reference_summary)
     else:
+        # Fallback: Clause-level BLEU (sim-to-orig) & proxy ROUGE
+        evaluation["bleu"] = compute_bleu(originals, simplifications)
         proxy_reference = " ".join(originals[:5])[:500]
         evaluation["rouge"] = compute_rouge(generated_summary, proxy_reference)
-        logger.warning("No reference summary provided; ROUGE computed against a proxy.")
+        logger.warning("No reference summary provided; BLEU (clause-level) and ROUGE (proxy) used.")
 
     evaluation["mean_semantic_similarity"] = aggregate_similarity(clause_results)
 
